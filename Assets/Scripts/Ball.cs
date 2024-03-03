@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour {
+public class Ball : MonoBehaviour
+{
 
     public GameObject redBalls;
-
-    void Start() {
+    void Start()
+    {
         Debug.Log("Transform Position :::");
-        foreach (var transform in redBalls.GetComponentsInChildren<Transform>()) {
+        foreach (var transform in redBalls.GetComponentsInChildren<Transform>())
+        {
             Debug.Log("Transform Position :::" + transform.position);
         }
     }
-
-    void Update() {
+    void Update()
+    {
 
     }
 
-    void initBall() {
+    void initBall()
+    {
     }
 
-    void handleCollide() {
+    void handleCollide()
+    {
 
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    }
 }

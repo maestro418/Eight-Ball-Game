@@ -6,22 +6,16 @@ public class Ball : MonoBehaviour
 {
 
     public GameObject redBalls;
+    public Vector3 ballPosition;
     void Start()
     {
-        Debug.Log("Transform Position :::");
-        foreach (var transform in redBalls.GetComponentsInChildren<Transform>())
-        {
-            Debug.Log("Transform Position :::" + transform.position);
-        }
+
     }
     void Update()
     {
-
+        ballPosition = transform.position;
     }
 
-    void initBall()
-    {
-    }
 
     void handleCollide()
     {

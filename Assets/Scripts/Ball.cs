@@ -5,20 +5,41 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
-    public GameObject redBalls;
-    public Vector3 ballPosition;
+    //--default caller--//
     void Start()
     {
 
     }
     void Update()
     {
-        ballPosition = transform.position;
+
     }
 
+    //--State--//
 
-    void handleCollide()
+
+    private void handleCollide()
     {
 
     }
+
+    private void handleMoving()
+    {
+
+    }
+
+    //--//
+
+    //--Support functions//
+
+    private void isBallScored()
+    {
+
+    }
+    private void setOwnerOfBall()
+    {
+
+    }
+
+    //--//
 }

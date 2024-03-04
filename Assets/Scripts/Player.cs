@@ -6,12 +6,7 @@ public class Player : MonoBehaviour
 {
     public string playerName;
 
-
-    public void initName(string name)
-    {
-
-    }
-
+    //--default caller--//
     void Start()
     {
 
@@ -22,4 +17,39 @@ public class Player : MonoBehaviour
     {
 
     }
+    //--//
+
+    //--State--//
+
+    private void handlePlayerStrike()
+    {
+
+    }
+
+    private void handleAfterStrike()
+    {
+
+    }
+
+    //--//
+
+    //--Support function--//
+
+    public void initName(string name)
+    {
+
+    }
+
+    private void setValidBalls()
+    {
+
+    }
+
+    private void isStrikedValidBall()
+    {
+
+    }
+
+    //--//
+
 }

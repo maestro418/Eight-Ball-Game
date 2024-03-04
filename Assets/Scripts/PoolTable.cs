@@ -10,13 +10,8 @@ public class PoolTable : MonoBehaviour
         Debug.Log("inited table");
         transform.position = new Vector3(0, -16.5f, 0);
     }
-
     void Start()
     {
         initTable();
-    }
-    void Update()
-    {
-
     }
 }

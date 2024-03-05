@@ -8,6 +8,8 @@ public class Stick : MonoBehaviour
     private float speed = 7;
     private Vector3 strikeDirection = Vector3.forward;
 
+    public const float MIN_DISTANCE = 27.5f;
+    public const float MAX_DISTANCE = 32f;
     //--default caller--//
     void Start()
     {
@@ -38,7 +40,7 @@ public class Stick : MonoBehaviour
     }
     //--//
 
-    //--Support functions
+    //--Support functions--//
     public void PlaceStick()
     {
         Vector3 cueBallPosition = trackCueBallPosition();
@@ -59,7 +61,7 @@ public class Stick : MonoBehaviour
         {
             cueDirection = 1;
         }
-        else if (mouseY > 0)
+        else
         {
             cueDirection = -1;
         }
@@ -68,10 +70,12 @@ public class Stick : MonoBehaviour
 
     private void collideWithCueBall()
     {
-        if (Input.GetButtonUp(0))
+        if (Input.GetButtonUp("Fire1"))
         {
-            renderer.enabled = false;
+            GetComponent<Renderer>().enabled = false;
         }
     }
+
+    //--//
 
 }

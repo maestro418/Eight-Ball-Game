@@ -5,18 +5,20 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
+    var ballNumber;
+
     //--default caller--//
     void Start()
     {
-
+        objectName = gameObject.name;
+        ballNumber = int.Parse(objectName.Replace("Ball", "")); ;
     }
     void Update()
     {
-
     }
+    //--//
 
     //--State--//
-
 
     private void handleCollide()
     {
@@ -30,7 +32,7 @@ public class Ball : MonoBehaviour
 
     //--//
 
-    //--Support functions//
+    //--Support functions--//
 
     private void isBallScored()
     {

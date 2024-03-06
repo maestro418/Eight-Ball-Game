@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Stick : MonoBehaviour
 {
+    private Ball cueBallScript;
+    private GameObject cueBall;
     private float cueDirection = -1;
     private float speed = 7;
     public Vector3 strikeDirection = Vector3.forward;
@@ -12,16 +14,12 @@ public class Stick : MonoBehaviour
     //--default caller--//
     void Start()
     {
-
-    }
-
-    void FixedUpdate()
-    {
-        controlStickBasedOnMouseEvent();
+        cueBall = GameObject.Find("CueBall");
     }
 
     void Update()
     {
+        controlStickBasedOnMouseEvent();
         if (!!isStrikingStatus)
         {
             MoveStickWithMouseMove();
@@ -38,10 +36,11 @@ public class Stick : MonoBehaviour
         transform.position = cueBallPosition + new Vector3(0, 0, -10f);
     }
 
+
     public Vector3 trackCueBallPosition()
     {
         Vector3 cueBallPosition;
-        cueBallPosition = GameObject.Find("CueBall").transform.position;
+        cueBallPosition = cueBall.transform.position;
         return cueBallPosition;
     }
 
@@ -68,19 +67,12 @@ public class Stick : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             isStrikingStatus = false;
+            transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
             GetComponent<Renderer>().enabled = false;
-            transform.Translate(Vector3.down * speed * Time.fixedDeltaTime);
-            Debug.Log("cueBall :::" + );
-            // for (int i = 0; i < balls.length; i++)
-            // {
-            //     if (balls[i].gameObject.name == "CueBall")
-            //     {
-            //         balls[i].addForceInCueBallCase();
-            //     }
-            // }
+            cueBallScript = cueBall.GetComponent<Ball>();
+            cueBallScript.addForceInCueBallCase();
         }
     }
-
     //--//
 
 }

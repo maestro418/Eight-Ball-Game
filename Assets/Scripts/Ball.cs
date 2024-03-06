@@ -6,7 +6,6 @@ public class Ball : MonoBehaviour
 {
     int ballNumber;
 
-    public Vector3 strikeDirection = Vector3.forward;
     public const int maxForce = 7000;
     public const int minForce = 250;
     public const float MIN_DISTANCE = 27.5f;
@@ -45,6 +44,8 @@ public class Ball : MonoBehaviour
         if (ballNumber == 0)
         {
             float force = getForceForCueBall();
+            Vector3 strikeDirection = GameObject.Find("Cue").GetComponent<Stick>().strikeDirection;
+            Debug.Log("force strike direction :::" + strikeDirection);
             GetComponent<Rigidbody>().AddForce(strikeDirection * force);
         }
     }
@@ -58,16 +59,6 @@ public class Ball : MonoBehaviour
         force = forceAmplitude * relativeDistance + minForce;
         return force;
     }
-
-
-    // private void isBallScored()
-    // {
-
-    // }
-    // private void setOwnerOfBall()
-    // {
-
-    // }
 
 
     //--//

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    var ballNumber;
+    int ballNumber;
 
     public Vector3 strikeDirection = Vector3.forward;
     public const int maxForce = 7000;
@@ -17,44 +17,43 @@ public class Ball : MonoBehaviour
     {
         initBallNumber();
     }
+
     void Update()
     {
     }
     //--//
 
-    //--State--//
-
-
-
-    //--//
-
     //--Support functions--//
 
-    private void initBallNumber()
+    public void initBallNumber()
     {
         var objectName = gameObject.name;
-        if (objectName !== "CueBall")
+        if (objectName == "CueBall")
         {
-            ballNumber = int.Parse(objectName.Replace("Ball", ""));
+            ballNumber = 0;
+
         }
         else
         {
-            ballNumber = 0;
+            ballNumber = int.Parse(objectName.Replace("ball", ""));
         }
-
+        Debug.Log("ballNumber :::" + ballNumber);
     }
 
-    private void addForceInCueBallCase()
+    public void addForceInCueBallCase()
     {
-        var force = getForceForCueBall();
-        GetComponent<RigidBody>().AddForce(force * strikeDirection);
+        if (ballNumber == 0)
+        {
+            float force = getForceForCueBall();
+            GetComponent<Rigidbody>().AddForce(strikeDirection * force);
+        }
     }
 
-    private void getForceForCueBall()
+    public float getForceForCueBall()
     {
-        var force;
+        float force;
         var forceAmplitude = maxForce - minForce;
-        Vector3 cuePosition = GameObject.Find("CueBall").transform.position;
+        Vector3 cuePosition = GameObject.Find("Cue").transform.position;
         var relativeDistance = (Vector3.Distance(cuePosition, transform.position) - MIN_DISTANCE) / (MAX_DISTANCE - MIN_DISTANCE);
         force = forceAmplitude * relativeDistance + minForce;
         return force;

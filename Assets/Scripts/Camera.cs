@@ -17,7 +17,6 @@ public class Camera : MonoBehaviour
     void Update()
     {
         rotateCameraWithMouse();
-
     }
     //--//
 
@@ -32,21 +31,12 @@ public class Camera : MonoBehaviour
             transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
             transform.RotateAround(cueBall.transform.position, transform.right, -mouseY);
             cue.transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
+            Debug.Log("cue ::::" + cue.transform.position + "cueBall :::" + cueBall.transform.position);
             Vector3 newStrikeDirection = (cue.transform.position - cueBall.transform.position).normalized;
+            Debug.Log("newStrikeDirection :::" + -newStrikeDirection);
             Stick cueScript = cue.GetComponent<Stick>();
-            Debug.Log("-newStrikeDirection ::::" + -newStrikeDirection);
             cueScript.strikeDirection = -newStrikeDirection;
         }
 
     }
-
-    // private void placeCamera()
-    // {
-    //     transform.position = cueBall.transform.position - cameraOffset;
-    // }
-    // private void setCameraOffset()
-    // {
-    //     cameraOffset = cueBall.transform.position - transform.position;
-    // }
-    //--//
 }

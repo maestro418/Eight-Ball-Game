@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
+
     }
     //--//
 
@@ -30,13 +31,11 @@ public class Ball : MonoBehaviour
         if (objectName == "CueBall")
         {
             ballNumber = 0;
-
         }
         else
         {
             ballNumber = int.Parse(objectName.Replace("ball", ""));
         }
-        Debug.Log("ballNumber :::" + ballNumber);
     }
 
     public void addForceInCueBallCase()

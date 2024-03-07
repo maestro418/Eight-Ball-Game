@@ -8,8 +8,9 @@ public class Stick : MonoBehaviour
     private GameObject cueBall;
     private float cueDirection = -1;
     private float speed = 7;
-    public Vector3 strikeDirection = Vector3.forward;
+    public Vector3 strikeDirection = Vector3.up;
     public bool isStrikingStatus = false;
+    public bool isStriked = false;
 
     //--default caller--//
     void Start()
@@ -26,6 +27,15 @@ public class Stick : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if (!!isStriked)
+        {
+            PlaceStick();
+        }
+
+    }
+
     //--//
 
 
@@ -35,7 +45,6 @@ public class Stick : MonoBehaviour
         Vector3 cueBallPosition = trackCueBallPosition();
         transform.position = cueBallPosition + new Vector3(0, 0, -10f);
     }
-
 
     public Vector3 trackCueBallPosition()
     {
@@ -67,6 +76,7 @@ public class Stick : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             isStrikingStatus = false;
+            isStriked = true;
             //transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
             GetComponent<Renderer>().enabled = false;
             cueBallScript = cueBall.GetComponent<Ball>();

@@ -67,7 +67,7 @@ public class Stick : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             isStrikingStatus = false;
-            transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
+            //transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
             GetComponent<Renderer>().enabled = false;
             cueBallScript = cueBall.GetComponent<Ball>();
             cueBallScript.addForceInCueBallCase();

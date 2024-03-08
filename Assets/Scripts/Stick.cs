@@ -8,14 +8,15 @@ public class Stick : MonoBehaviour
     private GameObject cueBall;
     private float cueDirection = -1;
     private float speed = 7;
-    public Vector3 strikeDirection = Vector3.up;
+    public Vector3 strikeDirection;
+    public Vector3 cueOffset;
     public bool isStrikingStatus = false;
     public bool isStriked = false;
 
     //--default caller--//
     void Start()
     {
-        cueBall = GameObject.Find("CueBall");
+        initData();
     }
 
     void Update()
@@ -27,7 +28,7 @@ public class Stick : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (!!isStriked)
         {
@@ -40,17 +41,24 @@ public class Stick : MonoBehaviour
 
 
     //--Support functions--//
-    public void PlaceStick()
+
+    public void initData()
     {
-        Vector3 cueBallPosition = trackCueBallPosition();
-        transform.position = cueBallPosition + new Vector3(0, 0, -10f);
+        cueBall = GameObject.Find("CueBall");
+        cueOffset = getCueOffset();
     }
 
-    public Vector3 trackCueBallPosition()
+    public void PlaceStick()
     {
-        Vector3 cueBallPosition;
-        cueBallPosition = cueBall.transform.position;
-        return cueBallPosition;
+        GetComponent<Renderer>().enabled = true;
+        transform.position = cueBall.transform.position - cueOffset;
+    }
+
+    public Vector3 getCueOffset()
+    {
+        Vector3 cueOffset;
+        cueOffset = cueBall.transform.position - transform.position;
+        return cueOffset;
     }
 
     private void MoveStickWithMouseMove()
@@ -73,11 +81,13 @@ public class Stick : MonoBehaviour
         {
             isStrikingStatus = true;
         }
+
         if (Input.GetButtonUp("Fire1"))
         {
-            isStrikingStatus = false;
             isStriked = true;
-            //transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
+            isStrikingStatus = false;
+            var distance = Vector3.Distance(transform.position, cueBall.transform.position);
+            cueBallScript = cueBall.GetComponent<Ball>();
             GetComponent<Renderer>().enabled = false;
             cueBallScript = cueBall.GetComponent<Ball>();
             cueBallScript.addForceInCueBallCase();

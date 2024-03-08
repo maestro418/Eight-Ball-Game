@@ -10,20 +10,27 @@ public class Camera : MonoBehaviour
     //--default caller--//
     void Start()
     {
-        cueBall = GameObject.Find("CueBall");
-        cue = GameObject.Find("Cue");
+        initData();
     }
 
     void Update()
     {
+        updateCameraPosition();
         rotateCameraWithMouse();
     }
     //--//
 
     //--Support functions--//
+    private void initData()
+    {
+        cueBall = GameObject.Find("CueBall");
+        cue = GameObject.Find("Cue");
+        cameraOffset = getCameraOffset();
+    }
 
     private void rotateCameraWithMouse()
     {
+        Stick cueScript = cue.GetComponent<Stick>();
         if (Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X");
@@ -31,12 +38,20 @@ public class Camera : MonoBehaviour
             transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
             transform.RotateAround(cueBall.transform.position, transform.right, -mouseY);
             cue.transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
-            Debug.Log("cue ::::" + cue.transform.position + "cueBall :::" + cueBall.transform.position);
             Vector3 newStrikeDirection = (cue.transform.position - cueBall.transform.position).normalized;
             Debug.Log("newStrikeDirection :::" + -newStrikeDirection);
-            Stick cueScript = cue.GetComponent<Stick>();
             cueScript.strikeDirection = -newStrikeDirection;
         }
+    }
 
+    private Vector3 getCameraOffset()
+    {
+        Vector3 cameraOffset;
+        cameraOffset = cueBall.transform.position - transform.position;
+        return cameraOffset;
+    }
+    private void updateCameraPosition()
+    {
+        transform.position = cueBall.transform.position - cameraOffset;
     }
 }

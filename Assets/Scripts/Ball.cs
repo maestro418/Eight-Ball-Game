@@ -45,6 +45,7 @@ public class Ball : MonoBehaviour
             float force = getForceForCueBall();
             Vector3 strikeDirection = GameObject.Find("Cue").GetComponent<Stick>().strikeDirection;
             Debug.Log("force strike direction :::" + strikeDirection);
+            Debug.Log("force :::" + force);
             GetComponent<Rigidbody>().AddForce(strikeDirection * force);
         }
     }

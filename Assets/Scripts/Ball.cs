@@ -60,6 +60,5 @@ public class Ball : MonoBehaviour
         return force;
     }
 
-
     //--//
 }

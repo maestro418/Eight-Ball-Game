@@ -7,6 +7,8 @@ public class Camera : MonoBehaviour
     private GameObject cueBall;
     private GameObject cue;
     private Vector3 cameraOffset;
+    private Quaternion cameraRotation;
+    Stick cueScript;
     //--default caller--//
     void Start()
     {
@@ -15,8 +17,13 @@ public class Camera : MonoBehaviour
 
     void Update()
     {
-        updateCameraPosition();
+        // if (cueScript.isStriked)
+        // {
+        //     updateCameraPosition();
+        // }
         rotateCameraWithMouse();
+
+
     }
     //--//
 
@@ -26,20 +33,22 @@ public class Camera : MonoBehaviour
         cueBall = GameObject.Find("CueBall");
         cue = GameObject.Find("Cue");
         cameraOffset = getCameraOffset();
+        cameraRotation = transform.rotation;
+        cueScript = cue.GetComponent<Stick>();
     }
 
     private void rotateCameraWithMouse()
     {
-        Stick cueScript = cue.GetComponent<Stick>();
+
         if (Input.GetMouseButton(1))
         {
+            Vector3 newStrikeDirection;
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
             transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
             transform.RotateAround(cueBall.transform.position, transform.right, -mouseY);
             cue.transform.RotateAround(cueBall.transform.position, Vector3.up, mouseX);
-            Vector3 newStrikeDirection = (cue.transform.position - cueBall.transform.position).normalized;
-            Debug.Log("newStrikeDirection :::" + -newStrikeDirection);
+            newStrikeDirection = (cue.transform.position - cueBall.transform.position).normalized;
             cueScript.strikeDirection = -newStrikeDirection;
         }
     }
@@ -53,5 +62,6 @@ public class Camera : MonoBehaviour
     private void updateCameraPosition()
     {
         transform.position = cueBall.transform.position - cameraOffset;
+        transform.forward = cue.transform.forward;
     }
 }

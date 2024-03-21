@@ -6,14 +6,19 @@ public class Stick : MonoBehaviour
 {
     private Ball cueBallScript;
     private GameObject cueBall;
+    private GameObject mainCamera;
+    private GameObject redBalls;
     private float cueDirection = -1;
     private float speed = 7;
+    private Quaternion cueRotation;
+
     public Vector3 strikeDirection;
     public Vector3 cueOffset;
     public bool isStrikingStatus = false;
     public bool isStriked = false;
 
     //--default caller--//
+
     void Start()
     {
         initData();
@@ -26,15 +31,29 @@ public class Stick : MonoBehaviour
         {
             MoveStickWithMouseMove();
         }
-    }
-
-    void FixedUpdate()
-    {
         if (!!isStriked)
         {
-            PlaceStick();
+            bool isAllBallsStopped = false;
+            Debug.Log("redBalls :::" + redBalls);
+            for (int i = 0; i < redBalls.transform.childCount; i++)
+            {
+                Transform child = redBalls.transform.GetChild(i);
+                Rigidbody rigidbody = child.GetComponent<Rigidbody>();
+                Debug.Log("rigidbody.velocity " + rigidbody.velocity);
+                if (rigidbody.velocity == Vector3.zero)
+                {
+                    isAllBallsStopped = true;
+                }
+                else
+                {
+                    isAllBallsStopped = false;
+                }
+            }
+            if (isAllBallsStopped)
+            {
+                PlaceStick();
+            }
         }
-
     }
 
     //--//
@@ -42,16 +61,23 @@ public class Stick : MonoBehaviour
 
     //--Support functions--//
 
+
     public void initData()
     {
         cueBall = GameObject.Find("CueBall");
+        mainCamera = GameObject.Find("Main Camera");
+        cueRotation = transform.rotation;
         cueOffset = getCueOffset();
+        redBalls = GameObject.Find("RedBalls");
     }
 
     public void PlaceStick()
     {
-        GetComponent<Renderer>().enabled = true;
+        //var distanceFromCamera = Vector3.Distance(mainCamera.transform.position, cueBall.transform.position);
         transform.position = cueBall.transform.position - cueOffset;
+        transform.rotation = cueRotation;
+        GetComponent<Renderer>().enabled = true;
+        isStriked = false;
     }
 
     public Vector3 getCueOffset()
@@ -86,8 +112,6 @@ public class Stick : MonoBehaviour
         {
             isStriked = true;
             isStrikingStatus = false;
-            var distance = Vector3.Distance(transform.position, cueBall.transform.position);
-            cueBallScript = cueBall.GetComponent<Ball>();
             GetComponent<Renderer>().enabled = false;
             cueBallScript = cueBall.GetComponent<Ball>();
             cueBallScript.addForceInCueBallCase();
